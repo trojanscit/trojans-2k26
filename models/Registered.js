@@ -6,12 +6,20 @@ const RegisteredSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  name: {
+    type: String,
+    default: null,
+  },
+  gender: {
+    type: String,
+    default: null,
+  },
   college_name: {
     type: String,
     default: null,
   },
   year: {
-    type: Number,
+    type: String,
     default: null,
   },
   department: {
