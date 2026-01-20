@@ -2,7 +2,7 @@ const Registered = require('../models/Registered');
 
 const registerEvent = async (req, res) => {
   try {
-    const { user_id, event_name,name,gender, college_name, year, department, phone_number } = req.body;
+    const { user_id, event_name,name,gender, college_name, year, department, phone_number,participation } = req.body;
     if (!user_id || !event_name) {
      
       return res.status(400).json({ message: 'user_id and event_name are required.' });
@@ -25,11 +25,12 @@ const registerEvent = async (req, res) => {
       const newUser = new Registered({
         user_id,
         name:name || null,
-        gender:name || null,
+        gender:gender || null,
         college_name: college_name || null,
         year: year || null,
         department: department || null,
         phone_number: phone_number || null,
+        participation : participation || null,
         events: [event_name],
       });
 
