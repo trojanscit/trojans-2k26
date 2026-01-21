@@ -30,6 +30,10 @@ const RegisteredSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  referral_code:{
+    type:String,
+    default:null
+  },
   events: {
     type: [String], // Array of event names
     default: [],
