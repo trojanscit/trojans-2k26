@@ -38,6 +38,14 @@ const RegisteredSchema = new mongoose.Schema({
     type: [String], // Array of event names
     default: [],
   },
+  team_name: {
+    type: String,
+    default: null,
+  },
+  team_members: {
+    type: String, // Stringified list or comma-separated names
+    default: null,
+  },
 });
 
 module.exports = mongoose.model('Registered', RegisteredSchema);

@@ -13,6 +13,8 @@ const registerEvent = async (req, res) => {
       phone_number,
       referral_code,
       participation,
+      team_name,
+      team_members,
     } = req.body;
     if (!user_id || !event_name) {
       return res
@@ -23,6 +25,10 @@ const registerEvent = async (req, res) => {
     let user = await Registered.findOne({ user_id });
 
     if (user) {
+      // Update team fields if provided
+      if (team_name) user.team_name = team_name;
+      if (team_members) user.team_members = team_members;
+
       if (!user.events.includes(event_name)) {
         user.events.push(event_name);
         await user.save();
@@ -30,9 +36,10 @@ const registerEvent = async (req, res) => {
           .status(200)
           .json({ message: "Event added successfully.", user: user });
       } else {
+        await user.save(); // Save changes to team fields even if event already exists
         return res
           .status(200)
-          .json({ message: "Event already registered.", user: user });
+          .json({ message: "Event already registered (team info updated).", user: user });
       }
     } else {
       const newUser = new Registered({
@@ -45,6 +52,8 @@ const registerEvent = async (req, res) => {
         phone_number: phone_number || null,
         referral_code: referral_code || null,
         participation: participation || null,
+        team_name: team_name || null,
+        team_members: team_members || null,
         events: [event_name],
       });
 
@@ -77,6 +86,8 @@ const getRegisteredEvents = async (req, res) => {
           department: user.department,
           college_name: user.college_name,
           year: user.year,
+          team_name: user.team_name,
+          team_members: user.team_members,
         });
     } else {
       return res
@@ -87,6 +98,8 @@ const getRegisteredEvents = async (req, res) => {
           department: "",
           college_name: "",
           year: "",
+          team_name: "",
+          team_members: "",
         });
     }
   } catch (error) {
