@@ -78,26 +78,29 @@ const getRegisteredEvents = async (req, res) => {
     const user = await Registered.findOne({ user_id });
 
     if (user) {
-      return res
-        .status(200)
-        .json({
-          events: user.events,
-          name: user.name,
-          department: user.department,
-          college_name: user.college_name,
-          year: user.year,
-          team_name: user.team_name,
-          team_members: user.team_members,
-        });
+      return res.status(200).json({
+        events: user.events,
+        name: user.name,
+        gender: user.gender,
+        department: user.department,
+        college_name: user.college_name,
+        year: user.year,
+        phone_number: user.phone_number,
+        referral_code: user.referral_code,
+        team_name: user.team_name,
+        team_members: user.team_members,
+      });
+
     } else {
-      return res
-        .status(200)
-        .json({
+        return res.status(200).json({
           events: [],
           name: "",
+          gender: "",
           department: "",
           college_name: "",
           year: "",
+          phone_number: "",
+          referral_code: "",
           team_name: "",
           team_members: "",
         });
