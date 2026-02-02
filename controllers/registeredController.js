@@ -19,7 +19,7 @@ const registerEvent = async (req, res) => {
     if (!user_id || !event_name) {
       return res
         .status(400)
-        .json({ message: "user_id and event_name are required." });
+        .json({ message: "Network Error. Refresh and Try again" });
     }
 
     let user = await Registered.findOne({ user_id });
